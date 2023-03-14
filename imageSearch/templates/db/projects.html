@@ -1,0 +1,28 @@
+<br>
+{% if docs %}
+    There are {{ total }} projects in the database <br>
+        {% for doc in docs %}
+        <form action="new_image" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+            <p>{{doc.title}}</p><input type="file" multiple class="filestyle" data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Add images" name="{{ doc.id }}"><input type="submit" value="Add"><br>
+            {{ doc.description }}
+            There {% if doc.files|length == 1 %} is 1 file {% else %} are {{ doc.files|length }} files {% endif %} associated with this project.
+            {% for img in doc.files %}
+                <img src="{{ img.b64url }}" alt="{{ img.name }}" />
+                <a href='del_image/{{ doc.id }}/{{ img.file_id }}'>X</a>
+            {% endfor %}
+            </div>
+        </form>
+        <div><a href='clean_project/{{ doc.id }}'>Clean project</a></div>
+        <div><a href='empty_project/{{ doc.id }}'>Empty project</a></div>
+        <div><a href='train_model/{{ doc.id }}'>{% if doc.trained %} Retrain {% else %} Train {% endif %}model</a>{% if doc.trained %}(trained){% endif %}</div>
+        {% if doc.trained %}
+        {% include 'db/analysis.html' %}
+        {% endif %}
+        <br>
+        {% endfor %}
+
+{% else %}
+    There are no projects in the database
+{% endif %}

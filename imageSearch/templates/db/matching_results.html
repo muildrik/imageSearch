@@ -1,0 +1,12 @@
+{% if matching_files %}
+
+    {% for match in matching_files %}
+        {% if forloop.first %}
+            Best match
+            <img src="{{ match.base64 }}" title="{{ match.name }} ({{ match.confidence }})" alt="{{ match.name }}" data-id="{{ match.file_id }}">
+        {% else %}
+            Other matches
+            <img src="{{ match.base64 }}" title="{{ match.name }} ({{ match.confidence }})" alt="{{ match.name }}" data-id="{{ match.file_id }}">
+        {% endif %}
+    {% endfor %}
+{% endif %}

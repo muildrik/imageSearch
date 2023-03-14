@@ -1,0 +1,8 @@
+{% if res %}
+{{ msg }}
+{% endif %}
+<form action="new_image" method="post">
+    {% csrf_token %}
+    <input type="file" placeholder="file" name="file">
+    <input type="submit" value=Submit>
+</form>

@@ -1,0 +1,4 @@
+<form action="analyze" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" class="filestyle" data-classButton="btn btn-primary" data-input="false" data-classIcon="icon-plus" data-buttonText="Add images" name="{{ doc.id }}"><input type="submit" value="Analyze">
+</form>
